@@ -1,19 +1,41 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Question from "./Question";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import QuestionContent from "./QuestionContent";
+import { Link } from "react-router-dom";
 
-function Review(props){
-    return (
-         <div >
-             {props.questions.map(question => 
-                <Question key={question.id} question={question}/>
-             )}
-        </div>
-    );
-}
+function Review() {
+  const [questions, setQuestions] = useState(null);
 
-Review.propTypes = { 
-    questions: PropTypes.array
+  useEffect(() => {
+    axios.get("http://localhost:7777/questions/").then((res) => {
+      res.data.sort(function (a, b) {
+        if (a.tresc < b.tresc) {
+          return -1;
+        }
+        if (a.tresc > b.tresc) {
+          return 1;
+        }
+        return 0;
+      });
+      setQuestions(res.data);
+    });
+  }, []);
+
+  return (
+    <div className="border border-secondary col-6 p-3 mx-5">
+      <h2>Lista pytań</h2>
+      <ul>
+        {questions &&
+          questions.map((question, index) => (
+            <li key={index} type="1">
+              <Link to={`/questions/${question.id}`}>
+                <QuestionContent tresc={question.tresc} />
+              </Link>
+            </li>
+          ))}
+      </ul>
+    </div>
+  );
 }
 
 export default Review;

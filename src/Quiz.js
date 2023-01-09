@@ -1,82 +1,41 @@
-import React from "react";
-import Review from "./Review";
-import AddQuestion from "./AddQuestion";
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import QuizQuestion from "./QuizQuestion";
 
-class Quiz extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      questions: [
-        {
-          id: 1,
-          tresc: "Stolicą wojewódzwa podlaskiego jest:",
-          odpowiedzi: ["Bielsk Podlaski", "Suwałki", "Białystok", "Augustów"],
-          poprawnaOdpowiedz: "Białystok",
-        },
-        {
-          id: 2,
-          tresc: "Podlasie graniczy z:",
-          odpowiedzi: [
-            "Litwą i Białorusią",
-            "Niemcami",
-            "Ukrainą i Białorusią",
-            "Czechami",
-          ],
-          poprawnaOdpowiedz: "Litwą i Białorusią",
-        },
-        {
-          id: 3,
-          tresc: "Sławną poetką z podlasia jest: ",
-          odpowiedzi: [
-            "Maria Konopnicka",
-            "Wisława Szymborska",
-            "Maria Pawlikowska-Jasnorzewska",
-            "Maria Dąbrowska",
-          ],
-          poprawnaOdpowiedz: "Maria Konopnicka",
-        },
-        {
-          id: 4,
-          tresc: "Gdzie w Polsce leży podlasie: ",
-          odpowiedzi: [
-            "na zachodzie",
-            "na południu",
-            "na północnym-wschodzie",
-            "na południowym-wschodzie",
-          ],
-          poprawnaOdpowiedz: "na północnym-wschodzie",
-        },
-      ],
-    };
-  }
+function Quiz(props) {
+  const location = useLocation();
+  const difficulty = location.state.difficulty;
 
-  addNewQuestion = (question) => {
-    this.setState((prevState) => {
-      let prev = prevState.questions;
-      prev.push({
-        id: prev.length + 1,
-        tresc: question.tresc,
-        odpowiedzi: [
-            question.odpowiedzi[0],
-            question.odpowiedzi[1],
-            question.odpowiedzi[2],
-            question.odpowiedzi[3],
-        ],
-        poprawnaOdpowiedz: question.poprawnaOdpowiedz,
-      });
-      return { questions: prev };
+  const [quizQuestions, setQuizQuestions] = useState(null);
+
+  useEffect(() => {
+    axios.get("http://localhost:7777/questions/").then((res) => {
+      drawQuestions(res.data);
     });
-  };
+  }, []);
 
-
-  render() {
-    return (
-      <div>
-        <Review questions={this.state.questions} />
-        <AddQuestion addQuestion={this.addNewQuestion} />
-      </div>
-    );
+  function drawQuestions(data) {
+    let questions = [];
+    let howMany = 0;
+    while (howMany < difficulty) {
+      const randIndex = Math.floor(Math.random() * data.length);
+      if (questions.includes(data[randIndex])) {
+        continue;
+      }
+      questions.push(data[randIndex]);
+      howMany += 1;
+    }
+    setQuizQuestions(questions);
   }
+
+  return (
+    <div>
+      {quizQuestions && <QuizQuestion questions={quizQuestions} difficulty={difficulty}/>}
+    </div>
+  );
 }
 
 export default Quiz;

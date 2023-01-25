@@ -130,96 +130,106 @@ class EditQuestion extends React.Component {
 
   render() {
     return (
-      <div className="border border-secondary col-4 p-4 mx-5 flex-column">
-        <h2>Edytuj pytanie</h2>
+      <div className="d-flex flex-row justify-content-center">
+        <div className="card p-3">
+          <div className="card-body">
+            <h2>Edytuj pytanie</h2>
 
-        <div className="d-inline-flex flex-column">
-          <div className="d-inline-flex  justify-content-end">
-            <PrintLabel inner="Podaj treść pytania: " />
-            <PrintInput
-              type={"text"}
-              id={"tresc"}
-              value={this.state.newQuestion.tresc}
-              validateFn={this.validateDataTresc}
+            <div>
+              <div className="form-group">
+                <PrintLabel inner="Treść pytania: " />
+                <PrintInput
+                  type={"text"}
+                  id={"tresc"}
+                  class="form-control"
+                  value={this.state.newQuestion.tresc}
+                  validateFn={this.validateDataTresc}
+                />
+              </div>
+
+              <div className="form-group">
+                <PrintLabel inner="Pierwsza odpowiedź: " />
+                <PrintInput
+                  type={"text"}
+                  id={"odp1"}
+                  class="form-control"
+                  value={this.state.newQuestion.odpowiedzi[0]}
+                  validateFn={this.validateDataAnswers}
+                />
+              </div>
+              <div className="form-group">
+                <PrintLabel inner="Druga odpowiedź: " />
+                <PrintInput
+                  type={"text"}
+                  id={"odp2"}
+                  class="form-control"
+                  value={this.state.newQuestion.odpowiedzi[1]}
+                  validateFn={this.validateDataAnswers}
+                />
+              </div>
+              <div className="form-group">
+                <PrintLabel inner="Trzecia odpowiedź: " />
+                <PrintInput
+                  type={"text"}
+                  id={"odp3"}
+                  class="form-control"
+                  value={this.state.newQuestion.odpowiedzi[2]}
+                  validateFn={this.validateDataAnswers}
+                />
+              </div>
+              <div className="form-group">
+                <PrintLabel inner="Czwarta odpowiedź: " />
+                <PrintInput
+                  type={"text"}
+                  id={"odp4"}
+                  class="form-control"
+                  value={this.state.newQuestion.odpowiedzi[3]}
+                  validateFn={this.validateDataAnswers}
+                />
+              </div>
+              <div className="form-group">
+                <PrintLabel inner="Poprawna odpowiedź: " />
+                <PrintInput
+                  type={"text"}
+                  id={"popOdp"}
+                  class="form-control"
+                  value={this.state.newQuestion.poprawnaOdpowiedz}
+                  validateFn={this.validateDataPopOdp}
+                />
+              </div>
+            </div>
+
+            <div className="d-inline-flex flex-column my-2">
+              <Error
+                status={this.state.allFieldsFill}
+                info={"Wszystkie pola są wymagane!"}
+              />
+
+              <Error
+                status={this.state.firstLetterUpperCase}
+                info={"Pierwsza litera treści pytania z dużej litery!"}
+              />
+
+              <Error
+                status={this.state.answerMatch}
+                info={
+                  "Poprawna odpowiedź musi być taka sama jak jedna z odpowiedzi!"
+                }
+              />
+            </div>
+          </div>
+
+          <div className="d-flex flex-row justify-content-center">
+            <PrintButton
+              class="btn btn-warning"
+              type={"submit"}
+              value={"Edytuj"}
+              onClickFn={this.handleSubmit}
             />
           </div>
 
-          <div className="d-inline-flex  justify-content-end">
-            <PrintLabel inner="Podaj pierwszą odpowiedź: " />
-            <PrintInput
-              type={"text"}
-              id={"odp1"}
-              value={this.state.newQuestion.odpowiedzi[0]}
-              validateFn={this.validateDataAnswers}
-            />
-          </div>
-          <div className="d-inline-flex  justify-content-end">
-            <PrintLabel inner="Podaj drugą odpowiedź: " />
-            <PrintInput
-              type={"text"}
-              id={"odp2"}
-              value={this.state.newQuestion.odpowiedzi[1]}
-              validateFn={this.validateDataAnswers}
-            />
-          </div>
-          <div className="d-inline-flex  justify-content-end">
-            <PrintLabel inner="Podaj trzecią odpowiedź: " />
-            <PrintInput
-              type={"text"}
-              id={"odp3"}
-              value={this.state.newQuestion.odpowiedzi[2]}
-              validateFn={this.validateDataAnswers}
-            />
-          </div>
-          <div className="d-inline-flex  justify-content-end">
-            <PrintLabel inner="Podaj czwartą odpowiedź: " />
-            <PrintInput
-              type={"text"}
-              id={"odp4"}
-              value={this.state.newQuestion.odpowiedzi[3]}
-              validateFn={this.validateDataAnswers}
-            />
-          </div>
-          <div className="d-inline-flex  justify-content-end">
-            <PrintLabel inner="Podaj poprawną odpowiedź: " />
-            <PrintInput
-              type={"text"}
-              id={"popOdp"}
-              value={this.state.newQuestion.poprawnaOdpowiedz}
-              validateFn={this.validateDataPopOdp}
-            />
-          </div>
+          {this.state.added && <Navigate to="/questions" />}
         </div>
-
-        <div className="d-inline-flex flex-column my-2">
-          <Error
-            status={this.state.allFieldsFill}
-            info={"Wszystkie pola są wymagane!"}
-          />
-
-          <Error
-            status={this.state.firstLetterUpperCase}
-            info={"Pierwsza litera treści pytania z dużej litery!"}
-          />
-
-          <Error
-            status={this.state.answerMatch}
-            info={
-              "Poprawna odpowiedź musi być taka sama jak jedna z odpowiedzi!"
-            }
-          />
-        </div>
-
-        <div>
-          <PrintButton
-            class="btn btn-warning"
-            type={"submit"}
-            value={"Edytuj"}
-            onClickFn={this.handleSubmit}
-          />
-        </div>
-
-        {this.state.added && <Navigate to="/questions" />}
       </div>
     );
   }

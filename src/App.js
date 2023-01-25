@@ -12,9 +12,8 @@ import Quiz from "./Quiz";
 
 function App() {
   return (
-    <div>
-      <BrowserRouter>
-        <div>
+    <div className="App">
+      <BrowserRouter> 
           <Navbar/>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -25,7 +24,6 @@ function App() {
             <Route path="/quiz" element={<Quiz />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
-        </div>
       </BrowserRouter>
     </div>
   );

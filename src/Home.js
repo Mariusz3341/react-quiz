@@ -10,21 +10,25 @@ function Home() {
   }
 
   return (
-    <div>
-      <div className="d-flex justify-content-center mb-4">
-        <h1>Quiz wiedzy o podlasiu</h1>
-      </div>
+    <div className="d-flex justify-content-center mt-5">
+      <div className="card">
+        <div className="card-body shadow">
+          <div className="d-flex justify-content-center mb-4">
+            <h1>Quiz wiedzy o podlasiu</h1>
+          </div>
 
-      <div className="d-flex justify-content-center">
-        {!clickStartButton && (
-          <PrintButton
-            class="btn btn-success"
-            type={"submit"}
-            value={"Rozpocznij quiz"}
-            onClickFn={startQuiz}
-          />
-        )}
-        {clickStartButton && <QuizDifficulty />}
+          <div className="d-flex justify-content-center">
+            {!clickStartButton && (
+              <PrintButton
+                class="btn btn-success"
+                type={"submit"}
+                value={"Rozpocznij quiz"}
+                onClickFn={startQuiz}
+              />
+            )}
+            {clickStartButton && <QuizDifficulty />}
+          </div>
+        </div>
       </div>
     </div>
   );

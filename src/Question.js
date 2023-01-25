@@ -30,30 +30,34 @@ function Question(props) {
   }
 
   return (
-    <div className="border border-secondary col-4 p-4 mx-5">
-      <h2>Szczegóły pytania</h2>
-      {question && (
-        <b>
-          <QuestionContent tresc={question.tresc} />
-        </b>
-      )}
-      {question && <QuestionAnswers odpowiedzi={question.odpowiedzi} />}
-      {question && (
-        <Link to={`/questions/edit/${question.id}`}>
+    <div className="d-flex flex-row justify-content-center">
+      <div className="card border border-secondary p-4 mx-5">
+        <div className="card-body">
+          <h2>Szczegóły pytania</h2>
+          {question && (
+            <b>
+              <QuestionContent tresc={question.tresc} />
+            </b>
+          )}
+          {question && <QuestionAnswers odpowiedzi={question.odpowiedzi} />}
+          {question && (
+            <Link to={`/questions/edit/${question.id}`}>
+              <PrintButton
+                class={"btn btn-warning"}
+                type={"submit"}
+                value={"Edytuj"}
+              />
+            </Link>
+          )}
+          &emsp;
           <PrintButton
-            class={"btn btn-warning"}
+            class={"btn btn-danger"}
             type={"submit"}
-            value={"Edytuj"}
+            value={"Usuń"}
+            onClickFn={deleteQuestion}
           />
-        </Link>
-      )}
-      &emsp;
-      <PrintButton
-        class={"btn btn-danger"}
-        type={"submit"}
-        value={"Usuń"}
-        onClickFn={deleteQuestion}
-      />
+        </div>
+      </div>
     </div>
   );
 }

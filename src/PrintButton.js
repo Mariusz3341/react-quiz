@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function PrintButton(props) {
-
   return (
     <input
       className={props.class}
@@ -14,7 +13,6 @@ function PrintButton(props) {
   );
 }
 
-
 PrintButton.propTypes = {
   class: PropTypes.string,
   type: PropTypes.string,
@@ -25,7 +23,7 @@ PrintButton.propTypes = {
 PrintButton.defaultProps = {
   onClickFn: () => {
     return;
-  }
-}
+  },
+};
 
 export default PrintButton;

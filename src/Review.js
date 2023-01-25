@@ -22,18 +22,23 @@ function Review() {
   }, []);
 
   return (
-    <div className="border border-secondary col-6 p-3 mx-5">
-      <h2>Lista pytań</h2>
-      <ul>
-        {questions &&
-          questions.map((question, index) => (
-            <li key={index} type="1">
-              <Link to={`/questions/${question.id}`}>
-                <QuestionContent tresc={question.tresc} />
-              </Link>
-            </li>
-          ))}
-      </ul>
+    <div className="d-flex flex-row">
+      <div className="card border border-secondary p-3 mx-5">
+        <div className="card-body">
+          <h2>Lista pytań</h2>
+
+          <ul>
+            {questions &&
+              questions.map((question, index) => (
+                <li key={index} type="1">
+                  <Link to={`/questions/${question.id}`}>
+                    <QuestionContent tresc={question.tresc} />
+                  </Link>
+                </li>
+              ))}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }

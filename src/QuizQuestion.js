@@ -63,90 +63,97 @@ class QuizQuestion extends React.Component {
     return (
       <div className="d-flex justify-content-center">
         {!this.state.done && (
-          <div>
-            <span className="d-flex justify-content-center">
-              Pytanie {this.state.numberQuestion + "/" + this.props.difficulty}
-            </span>
-            <div className="border border-secondary p-4 rounded">
-              <div className="mb-4">
-                <strong>
-                  <QuestionContent
-                    tresc={this.props.questions[this.state.id].tresc}
-                  />
-                </strong>
+          <div className="card">
+            <div className="card-body">
+              <span className="d-flex justify-content-center">
+                Pytanie{" "}
+                {this.state.numberQuestion + "/" + this.props.difficulty}
+              </span>
+              <div className="border border-secondary p-4 rounded">
+                <div className="mb-4">
+                  <strong>
+                    <QuestionContent
+                      tresc={this.props.questions[this.state.id].tresc}
+                    />
+                  </strong>
+                </div>
+                <form onSubmit={this.setNextQuestion}>
+                  <div>
+                    <PrintInput
+                      type="radio"
+                      name="answer"
+                      value={this.props.questions[this.state.id].odpowiedzi[0]}
+                      validateFn={(e) => this.setAnswer(e)}
+                    />
+                    <PrintLabel
+                      inner={this.props.questions[this.state.id].odpowiedzi[0]}
+                    />
+                  </div>
+
+                  <div>
+                    <PrintInput
+                      type="radio"
+                      name="answer"
+                      value={this.props.questions[this.state.id].odpowiedzi[1]}
+                      validateFn={(e) => this.setAnswer(e)}
+                    />
+                    <PrintLabel
+                      inner={this.props.questions[this.state.id].odpowiedzi[1]}
+                    />
+                  </div>
+
+                  <div>
+                    <PrintInput
+                      type="radio"
+                      name="answer"
+                      value={this.props.questions[this.state.id].odpowiedzi[2]}
+                      validateFn={(e) => this.setAnswer(e)}
+                    />
+                    <PrintLabel
+                      inner={this.props.questions[this.state.id].odpowiedzi[2]}
+                    />
+                  </div>
+
+                  <div>
+                    <PrintInput
+                      type="radio"
+                      name="answer"
+                      value={this.props.questions[this.state.id].odpowiedzi[3]}
+                      validateFn={(e) => this.setAnswer(e)}
+                    />
+                    <PrintLabel
+                      inner={this.props.questions[this.state.id].odpowiedzi[3]}
+                    />
+                  </div>
+
+                  <div className="d-flex justify-content-center mt-3">
+                    <PrintButton
+                      class="btn btn-primary"
+                      value={this.state.inputValue}
+                      type="submit"
+                    />
+                  </div>
+                </form>
               </div>
-              <form onSubmit={this.setNextQuestion}>
-                <div>
-                  <PrintInput
-                    type="radio"
-                    name="answer"
-                    value={this.props.questions[this.state.id].odpowiedzi[0]}
-                    validateFn={(e) => this.setAnswer(e)}
-                  />
-                  <PrintLabel
-                    inner={this.props.questions[this.state.id].odpowiedzi[0]}
-                  />
-                </div>
-
-                <div>
-                  <PrintInput
-                    type="radio"
-                    name="answer"
-                    value={this.props.questions[this.state.id].odpowiedzi[1]}
-                    validateFn={(e) => this.setAnswer(e)}
-                  />
-                  <PrintLabel
-                    inner={this.props.questions[this.state.id].odpowiedzi[1]}
-                  />
-                </div>
-
-                <div>
-                  <PrintInput
-                    type="radio"
-                    name="answer"
-                    value={this.props.questions[this.state.id].odpowiedzi[2]}
-                    validateFn={(e) => this.setAnswer(e)}
-                  />
-                  <PrintLabel
-                    inner={this.props.questions[this.state.id].odpowiedzi[2]}
-                  />
-                </div>
-
-                <div>
-                  <PrintInput
-                    type="radio"
-                    name="answer"
-                    value={this.props.questions[this.state.id].odpowiedzi[3]}
-                    validateFn={(e) => this.setAnswer(e)}
-                  />
-                  <PrintLabel
-                    inner={this.props.questions[this.state.id].odpowiedzi[3]}
-                  />
-                </div>
-
-                <div className="d-flex justify-content-center mt-3">
-                  <PrintButton
-                    class="btn btn-primary"
-                    value={this.state.inputValue}
-                    type="submit"
-                  />
-                </div>
-              </form>
             </div>
           </div>
         )}
         {this.state.done && (
-          <div>
-            <h4>
-              Twój wynik to: {this.state.points + "/" + this.props.difficulty}
-            </h4> <br/>
-            <Link to={`/`}>
-          <PrintButton
-            class={"btn btn-primary"}
-            type={"submit"}
-            value={"Wróć na stronę główną"}
-          />
-        </Link>
+          <div className="card">
+            <div className="card-body">
+              <h1>
+                Twój wynik to: {this.state.points + "/" + this.props.difficulty}
+              </h1>
+              <div className="d-flex justify-content-center mt-5">
+                <Link to={`/`}>
+                  <PrintButton
+                    class={"btn btn-primary"}
+                    type={"submit"}
+                    value={"Wróć na stronę główną"}
+                  />
+                </Link>
+              </div>
+            </div>
           </div>
         )}
       </div>

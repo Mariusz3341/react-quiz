@@ -2,15 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function PrintLabel(props) {
-  return (
-    <label>
-      {props.inner}
-    </label>
-  );
+  return <label>{props.inner}</label>;
 }
 
 PrintLabel.propTypes = {
-  inner: PropTypes.string
+  inner: PropTypes.string,
 };
 
 export default PrintLabel;
